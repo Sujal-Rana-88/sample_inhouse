@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "8608006827",
+    "project_id": "taskmanagment-80b42",
+    "storage_bucket": "taskmanagment-80b42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8608006827:android:46b717026f5c7cf02a6dee",
+        "android_client_info": {
+          "package_name": "com.example.sample_inhou"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAawr4cPlTgW8mbC0nkvxdhKw3HibzlFd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
