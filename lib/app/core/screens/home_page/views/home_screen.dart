@@ -14,9 +14,13 @@ class HomeScreen extends GetView<HomeScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+
       appBar: AppBar(
         title:  Text("Home Screen", style: StyleConstants.black20w700,),
         centerTitle: true,
+        backgroundColor: Colors.white,
+
       ),
       body: const Column(
         children: [

@@ -241,6 +241,12 @@ class StyleConstants {
       fontWeight: FontWeight.w700,
       fontStyle: FontStyle.normal
   );
+  static var black16w500=GoogleFonts.inter(
+      fontSize: 16,
+      color: CustomColor.black,
+      fontWeight: FontWeight.w500,
+      fontStyle: FontStyle.normal
+  );
 
   static var black50012=const TextStyle(
       fontSize: 12,

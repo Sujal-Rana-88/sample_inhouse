@@ -23,7 +23,7 @@ class _CustomerProfileViewState extends State<CustomerProfileView> {
     final screenHeight = MediaQuery.of(context).size.height;
     final TabController tabController = TabController(length: 2, vsync: Scaffold.of(context) as TickerProvider);
     return Scaffold(
-
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Row(
@@ -60,7 +60,7 @@ class _CustomerProfileViewState extends State<CustomerProfileView> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 8.0, left: 30),
+                padding:  EdgeInsets.only(top: screenHeight*0.01, left: screenWidth*0.03),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -93,12 +93,12 @@ class _CustomerProfileViewState extends State<CustomerProfileView> {
               height: screenHeight * 0.09,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: const Color(0xFFE0E0E0),
-                  width: 2.0,
+                  color: const Color(0xFFA4D0EB),
+                  width: 1.0,
                 ),
                 borderRadius: BorderRadius.circular(7),
                 gradient: const LinearGradient(
-                  colors: [Color(0xFFDCF4FF), Color(0xFFEAF9FF)],
+                  colors: [Color(0xFFC9EAF8), Color(0xFFF6FBFF)],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                 ),

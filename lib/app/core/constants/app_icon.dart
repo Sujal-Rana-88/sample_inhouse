@@ -8,6 +8,11 @@ class AppIcon {
   static var editIcon="${common_path}editicon.svg";
   static var backIcon="${common_path}backicon.svg";
   static var navigationBar="${common_path}navigation_bar.svg";
-
+  static var headphoneIcon="${common_path}headphone.svg";
+  static var scooterIcon="${common_path}scooter.svg";
+  static var deliveredIcon="${common_path}delivered.svg";
+  static var buildingIcon="${common_path}building.svg";
+  static var editBlueIcon="${common_path}edit_icon_blue.svg";
+  static var downloadIcon="${common_path}download_icon.svg";
 
 }

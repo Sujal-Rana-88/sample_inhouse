@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants/style_constants.dart';
+import '../../../routes/app_pages.dart';
 import '../controller/customer_profile_screen_controller.dart';
 
 class OrderHistoryTab extends StatefulWidget {
@@ -105,6 +106,12 @@ class _OrderHistoryTabState extends State<OrderHistoryTab> {
                               ),
                               const Spacer(),
                               GestureDetector(
+                                onTap: (){
+                                  Get.toNamed(
+                                    Routes.ORDER_DETAILS_SCREEN,
+
+                                  );
+                                },
                                 child: const Row(
                                   children: [
                                     Text('View Details'),

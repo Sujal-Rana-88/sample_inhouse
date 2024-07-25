@@ -5,9 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class CustomersScreenController extends FullLifeCycleController with FullLifeCycleMixin {
   static const _pageSize = 10;
 
-
-  final PagingController<int, DocumentSnapshot> pagingController =
-  PagingController(firstPageKey: 0);
+  final PagingController<int, DocumentSnapshot> pagingController = PagingController(firstPageKey: 0);
+  String _searchQuery = '';
 
   @override
   void onInit() {
@@ -15,29 +14,28 @@ class CustomersScreenController extends FullLifeCycleController with FullLifeCyc
       _fetchPage(pageKey);
     });
     super.onInit();
-
   }
 
+  void updateSearchQuery(String query) {
+    _searchQuery = query;
+    pagingController.refresh();
+  }
 
   Future<void> _fetchPage(int pageKey) async {
     try {
       QuerySnapshot querySnapshot;
+      Query query = FirebaseFirestore.instance.collection('clients').orderBy('name');
+
+      if (_searchQuery.isNotEmpty) {
+        query = query.where('name', isGreaterThanOrEqualTo: _searchQuery).where('name', isLessThan: '$_searchQuery\uf8ff');
+      }
 
       if (pageKey == 0) {
-        querySnapshot = await FirebaseFirestore.instance
-            .collection('clients')
-            .orderBy('name')
-            .limit(_pageSize)
-            .get();
+        querySnapshot = await query.limit(_pageSize).get();
       } else {
         final lastDocument = pagingController.itemList?.last;
         if (lastDocument != null) {
-          querySnapshot = await FirebaseFirestore.instance
-              .collection('clients')
-              .orderBy('name')
-              .startAfterDocument(lastDocument)
-              .limit(_pageSize)
-              .get();
+          querySnapshot = await query.startAfterDocument(lastDocument).limit(_pageSize).get();
         } else {
           throw Exception('Last document is null');
         }
@@ -62,27 +60,17 @@ class CustomersScreenController extends FullLifeCycleController with FullLifeCyc
   }
 
   @override
-  void onDetached() {
-    // Handle onDetached
-  }
+  void onDetached() {}
 
   @override
-  void onHidden() {
-    // Handle onHidden
-  }
+  void onHidden() {}
 
   @override
-  void onInactive() {
-    // Handle onInactive
-  }
+  void onInactive() {}
 
   @override
-  void onPaused() {
-    // Handle onPaused
-  }
+  void onPaused() {}
 
   @override
-  void onResumed() {
-    // Handle onResumed
-  }
+  void onResumed() {}
 }

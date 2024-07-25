@@ -3,11 +3,15 @@ import 'package:sample_inhouse/app/core/screens/add_page/bindings/add_page_bindi
 import 'package:sample_inhouse/app/core/screens/add_page/views/add_page.dart';
 import 'package:sample_inhouse/app/core/screens/customers_screen/bindings/customers_screen_bindings.dart';
 import 'package:sample_inhouse/app/core/screens/customers_screen/views/customers_screen.dart';
+import 'package:sample_inhouse/app/core/screens/edit_profile/bindings/edit_profile_screen_binding.dart';
+import 'package:sample_inhouse/app/core/screens/edit_profile/views/edit_profile_screen.dart';
 import 'package:sample_inhouse/app/core/screens/home_page/bindings/home_screen_binding.dart';
 import 'package:sample_inhouse/app/core/screens/home_page/views/home_screen.dart';
 import 'package:sample_inhouse/app/core/screens/login_modules/otp_screen/bindings/otp_screen_binding.dart';
 import 'package:sample_inhouse/app/core/screens/login_modules/splash_screen/views/splash_screen.dart';
 import 'package:sample_inhouse/app/core/screens/login_modules/login_screen/views/login_screen.dart';
+import 'package:sample_inhouse/app/core/screens/order_details/bindings/order_details_bindings.dart';
+import 'package:sample_inhouse/app/core/screens/order_details/views/order_details_screen.dart';
 import '../screens/customer_profile_screen/bindings/customer_profile_screen_binding.dart';
 import '../screens/customer_profile_screen/views/customer_profile_screen.dart';
 import '../screens/login_modules/login_screen/bindings/login_binding.dart';
@@ -53,6 +57,14 @@ class AppPages {
       name: _Paths.CUSTOMER_PROFILE_SCREEN,
       page: () =>  CustomerProfileScreen(),
       binding: CustomerProfileScreenBinding(),
+    ),GetPage(
+      name: _Paths.ORDER_DETAILS_SCREEN,
+      page: () =>  OrderDetailsScreen(),
+      binding: OrderDetailsBindings(),
+    ),GetPage(
+      name: _Paths.EDIT_PORFILE_SCREEN,
+      page: () =>  EditProfileScreen(),
+      binding: EditProfileScreenBinding(),
     ),
   ];
 }
