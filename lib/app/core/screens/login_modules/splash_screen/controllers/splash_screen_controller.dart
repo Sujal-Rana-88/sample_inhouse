@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Authentication
 import '../../../../routes/app_pages.dart';
+
 class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
+  final FirebaseAuth _auth = FirebaseAuth.instance; // Instance of FirebaseAuth
 
   @override
   Future<void> onInit() async {
@@ -12,7 +15,15 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   }
 
   Future<void> loadingScreen() async {
-    Get.offNamed(Routes.LOGIN);
+    User? user = _auth.currentUser;
+
+    if (user == null) {
+      //! User is not logged in, navigate to the login screen
+      Get.offNamed(Routes.LOGIN);
+    } else {
+      //! User is logged in, navigate to the home screen
+      Get.offNamed(Routes.HOME);
+    }
   }
 
   @override

@@ -28,7 +28,7 @@ class CustomerProfileScreenController extends FullLifeCycleController with FullL
   }
 
 
-  void fetchUserOrders() async {
+  Future<void> fetchUserOrders() async {
     isLoading.value = true;
     try {
       final QuerySnapshot querySnapshot = await FirebaseFirestore.instance

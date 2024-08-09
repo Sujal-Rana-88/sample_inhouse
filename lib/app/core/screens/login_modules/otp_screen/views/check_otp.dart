@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import '../../../../constants/app_colors.dart';
@@ -107,7 +106,7 @@ class _CheckOtpState extends State<CheckOtp> {
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   )
                       : Text(
-                    AppLocalizations.of(context)!.next,
+                    'next',
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 22,

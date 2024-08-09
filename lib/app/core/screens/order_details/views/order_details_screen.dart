@@ -25,265 +25,257 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
           },
         ),
         title: Text(
-          'Customer Profile',
+          'Order Details',
           style: StyleConstants.black20w700,
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  left: screenHeight * 0.02,
-                  right: screenHeight * 0.02,
-                  bottom: 34),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xFFEAEBEE),
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      color: Colors.grey[200],
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero, // Remove padding
-                        title: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Order Number ',
-                                    style: StyleConstants.blackTextStyle16600,
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    'Cash',
-                                    style:
-                                        StyleConstants.green_colorTextstyle15w500,
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                '3232323',
-                                style: StyleConstants.grey_color_variant414w500,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+        child: Padding(
+          padding:  EdgeInsets.only( right: screenHeight * 0.02,
+              left: screenHeight * 0.02),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: screenHeight*0.03),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xFFEAEBEE),
+                      width: 2.0,
                     ),
-                    Container(
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: screenHeight * 0.02,
-                                right: screenHeight * 0.02,
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        color: Colors.grey[200],
+                        child: ListTile(
+                          contentPadding: EdgeInsets.zero, // Remove padding
+                          title: Padding(
+                            padding:  EdgeInsets.only(right: screenHeight * 0.02,
                                 left: screenHeight * 0.02),
-                            child: Row(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SvgPicture.asset(
-                                  AppIcon.scooterIcon,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Order Number ',
+                                      style: StyleConstants.blackTextStyle16600,
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      'Cash',
+                                      style:
+                                          StyleConstants.green_colorTextstyle15w500,
+                                    ),
+                                  ],
                                 ),
                                 Text(
-                                  "Two Wheeler Delivery",
-                                  style: StyleConstants.blackTextStyle14w400,
-                                ),
-                                Spacer(),
-                                SvgPicture.asset(
-                                  AppIcon.deliveredIcon,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 18),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: screenHeight * 0.02,
-                  right: screenHeight * 0.02,
-                  bottom: 34),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xFFEAEBEE),
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      color: Colors.grey[200],
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero, // Remove padding
-                        title: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SvgPicture.asset(
-                                    AppIcon.buildingIcon,
-                                  ),
-                                  Text(
-                                    'Drop',
-                                    style: StyleConstants.blackTextStyle16600,
-                                  ),
-                                  Spacer(),
-                                  SvgPicture.asset(AppIcon.editBlueIcon)
-                                ],
-                              ),
-                              Padding(
-                                padding:  EdgeInsets.all(screenHeight*0.01),
-                                child: Text(
-                                  'Rajeev chauk new delhi, connaught place delhi-110091',
+                                  '3232323',
                                   style: StyleConstants.grey_color_variant414w500,
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: const Divider(
-                color: Color(0xFFEBEBEB),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  SvgPicture.asset(AppIcon.downloadIcon),
-                  SizedBox(width: screenHeight * 0.02),
-                  Text(
-                    'Get Invoice',
-                    style: StyleConstants.blackTextStyle16600,
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: 16,
-                    color: Colors.grey,
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: screenHeight * 0.02,
-                  right: screenHeight * 0.02,
-                  bottom: 34),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xFFEAEBEE),
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      color: Colors.grey[200],
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero, // Remove padding
-                        title: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                      Container(
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: screenHeight * 0.02,
+                                  right: screenHeight * 0.02,
+                                  left: screenHeight * 0.02),
+                              child: Row(
                                 children: [
-                                  Text(
-                                    'Order Number ',
-                                    style: StyleConstants.blackTextStyle16600,
+                                  SvgPicture.asset(
+                                    AppIcon.scooterIcon,
                                   ),
-                                  const Spacer(),
                                   Text(
-                                    'Cash',
-                                    style:
-                                        StyleConstants.green_colorTextstyle15w500,
+                                    "Two Wheeler Delivery",
+                                    style: StyleConstants.blackTextStyle14w400,
+                                  ),
+                                  Spacer(),
+                                  SvgPicture.asset(
+                                    AppIcon.deliveredIcon,
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(height: 18),
+                          ],
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: screenHeight*0.03),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xFFEAEBEE),
+                      width: 2.0,
                     ),
-                    Container(
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: screenHeight * 0.02,
-                                right: screenHeight * 0.02,
-                                left: screenHeight * 0.02),
-                            child: Row(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        color: Colors.grey[200],
+                        child: ListTile(
+                          contentPadding: EdgeInsets.zero, // Remove padding
+                          title: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SvgPicture.asset(
-                                  AppIcon.scooterIcon,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppIcon.buildingIcon,
+                                    ),
+                                    Text(
+                                      'Drop',
+                                      style: StyleConstants.blackTextStyle16600,
+                                    ),
+                                    Spacer(),
+                                    SvgPicture.asset(AppIcon.editBlueIcon)
+                                  ],
                                 ),
-                                Text(
-                                  "Two Wheeler Delivery",
-                                  style: StyleConstants.blackTextStyle14w400,
-                                ),
-                                Spacer(),
-                                SvgPicture.asset(
-                                  AppIcon.deliveredIcon,
+                                Padding(
+                                  padding:  EdgeInsets.all(screenHeight*0.01),
+                                  child: Text(
+                                    'Rajeev chauk new delhi, connaught place delhi-110091',
+                                    style: StyleConstants.grey_color_variant414w500,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 18),
-                        ],
+                        ),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+              const Divider(
+                color: Color(0xFFEBEBEB),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(top:screenHeight*0.01),
+                child: Row(
+                  children: [
+                    SvgPicture.asset(AppIcon.downloadIcon),
+                    SizedBox(width: screenHeight * 0.02),
+                    Text(
+                      'Get Invoice',
+                      style: StyleConstants.blackTextStyle16600,
                     ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 16,
+                      color: Colors.grey,
+                    )
                   ],
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: screenHeight * 0.02,
-                  right: screenHeight * 0.02,
-                  bottom: 34),
-              child: Container(
+              Padding(
+                padding: EdgeInsets.only(
+                    top: screenHeight*0.03,
+                    bottom: screenHeight*0.03),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xFFEAEBEE),
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        color: Colors.grey[200],
+                        child: ListTile(
+                          contentPadding: EdgeInsets.zero, // Remove padding
+                          title: Padding(
+                            padding:  EdgeInsets.only(right: screenHeight * 0.02,
+                                left: screenHeight * 0.02),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Order Number ',
+                                      style: StyleConstants.blackTextStyle16600,
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      'Cash',
+                                      style:
+                                          StyleConstants.green_colorTextstyle15w500,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: screenHeight * 0.02,
+                                  right: screenHeight * 0.02,
+                                  left: screenHeight * 0.02),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    AppIcon.scooterIcon,
+                                  ),
+                                  Text(
+                                    "Two Wheeler Delivery",
+                                    style: StyleConstants.blackTextStyle14w400,
+                                  ),
+                                  Spacer(),
+                                  SvgPicture.asset(
+                                    AppIcon.deliveredIcon,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 18),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -316,7 +308,7 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
                                   Text(
                                     'Cash',
                                     style:
-                                        StyleConstants.green_colorTextstyle15w500,
+                                    StyleConstants.green_colorTextstyle15w500,
                                   ),
                                 ],
                               ),
@@ -368,7 +360,7 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(top: screenHeight * 0.03),
+                                  EdgeInsets.only(top: screenHeight * 0.03),
                                   child: DottedLine(
                                     direction: Axis.horizontal,
                                     alignment: WrapAlignment.center,
@@ -403,8 +395,8 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

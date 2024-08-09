@@ -14,5 +14,9 @@ class AppIcon {
   static var buildingIcon="${common_path}building.svg";
   static var editBlueIcon="${common_path}edit_icon_blue.svg";
   static var downloadIcon="${common_path}download_icon.svg";
+  static var personIcon="${common_path}person_icon.svg";
+  static var homeIcon="${common_path}home_icon.svg";
+  static var BackCrossIcon="${common_path}back_cross_icon.svg";
+  static var contactIcon="${common_path}contact_icon.svg";
 
 }

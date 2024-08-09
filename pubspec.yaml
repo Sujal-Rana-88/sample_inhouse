@@ -52,6 +52,8 @@ dependencies:
   pinput: ^5.0.0
   bottom_sheet_scaffold: ^0.1.9
   timeago: ^3.7.0
+  syncfusion_flutter_datepicker: ^26.2.7
+  multiselect: ^0.1.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

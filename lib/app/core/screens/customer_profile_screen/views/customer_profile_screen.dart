@@ -11,7 +11,9 @@ import '../../../routes/app_pages.dart';
 import '../controller/customer_profile_screen_controller.dart';
 
 class CustomerProfileScreen extends GetView<CustomerProfileScreenController>  {
+  CustomerProfileScreenController customerProfileScreenController = Get.find<CustomerProfileScreenController>();
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,6 +38,7 @@ class CustomerProfileScreen extends GetView<CustomerProfileScreenController>  {
                onTap: (){
                  Get.toNamed(
                    Routes.EDIT_PORFILE_SCREEN,
+                   arguments: [customerProfileScreenController.selectedUserPhoneNumber.value, customerProfileScreenController.selectedUserName.value, customerProfileScreenController.selectedUserAddress.value],
                  );
                },
                child: Text(

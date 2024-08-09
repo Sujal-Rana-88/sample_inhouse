@@ -29,7 +29,7 @@ class AddPageController extends FullLifeCycleController
   var costText = ''.obs;
   var amountReceivedText = ''.obs;
 
-
+  var selectedProductTypes = <String>[].obs;
   @override
   void onInit() {
     //TODO -> Use Infinite Scroller if needed
@@ -62,7 +62,7 @@ class AddPageController extends FullLifeCycleController
   }
 
   //!Fetch current day orders of customers
-  void fetchUserOrders() async {
+  Future<void> fetchUserOrders() async {
     try {
       DateTime now = DateTime.now();
       DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
@@ -89,11 +89,12 @@ class AddPageController extends FullLifeCycleController
 
 
   //!Store Cost according to products (eg-: cements, bricks etc)
-  void storeCost() async {
+  Future<void> storeCost() async {
     try {
       double unitCost = double.tryParse(unitController.text) ?? 0;
       double productCost = double.tryParse(costController.text) ?? 0;
       double totalCost = unitCost * productCost;
+
     //!Get the values to check if product already exist or not
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection('cost')
@@ -114,7 +115,7 @@ class AddPageController extends FullLifeCycleController
             .doc(selectedCustomer.toString())
             .set(existingData);
       }
-      //!If product doesn't exit already create new field and add cost
+      //!If product doesn't exist already create new field and add cost
       else {
         Map<String, dynamic> newData = {
           selectedProduct.toString(): totalCost,
@@ -131,77 +132,59 @@ class AddPageController extends FullLifeCycleController
   }
 
   //!update user amount (eg-: Total Amount, Amount Paid, and Amount Left)
-  void userAmount() async {
-    double unitCost = double.tryParse(unitController.text) ?? 0;
+  Future<void> userAmount() async {
+    double unit = double.tryParse(unitController.text) ?? 0;
     double productCost = double.tryParse(costController.text) ?? 0;
-    double totalCost = unitCost * productCost;
+    double totalCost = unit * productCost;
+    double receivedAmount = double.tryParse(amountReceived.text) ?? 0;
 
     try {
-      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('clients')
-          .where('phoneNumber', isEqualTo: selectedCustomer.toString())
-          .get();
+      // Access the document directly by its ID
+      final docRef = FirebaseFirestore.instance
+          .collection('wallet')
+          .doc(selectedCustomer.toString());
 
-      if (querySnapshot.docs.isNotEmpty) {
-        for (var doc in querySnapshot.docs) {
-          if (!doc.exists) {
-            print('Document does not exist!');
-            continue;
-          }
+      // Get the document
+      final doc = await docRef.get();
 
-          // Ensure doc.data() is of type Map<String, dynamic>
-          Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+      if (doc.exists) {
+        // Ensure doc.data() is of type Map<String, dynamic>
+        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
 
-          // Check if data is not null and if key already exists
-          if (data != null && data.containsKey('totalAmount')) {
-            // Retrieve current totalAmount and convert to double
-            dynamic currentTotalAmount = data['totalAmount'];
-            double parsedCurrentTotalAmount =
-            currentTotalAmount is String
-                ? double.tryParse(currentTotalAmount) ?? 0
-                : (currentTotalAmount ?? 0).toDouble();
+        if (data != null) {
+          // Retrieve current totalAmount and convert to double
+          double parsedCurrentTotalAmount = (data['totalAmount'] is String
+              ? double.tryParse(data['totalAmount']) ?? 0
+              : (data['totalAmount'] ?? 0).toDouble());
 
-            // Fetch received amount and add your current received amount
-            dynamic currentReceivedAmount = data['receivedAmount'];
-            double parsedCurrentReceivedAmount =
-            currentReceivedAmount is String
-                ? double.tryParse(currentReceivedAmount) ?? 0
-                : (currentReceivedAmount ?? 0).toDouble();
+          // Retrieve current receivedAmount and convert to double
+          double parsedCurrentReceivedAmount = (data['amountReceived'] is String
+              ? double.tryParse(data['amountReceived']) ?? 0
+              : (data['amountReceived'] ?? 0).toDouble());
 
-            // Calculate new totalAmount
-            double newTotalAmount = parsedCurrentTotalAmount + totalCost;
-            // Calculate new receivedAmount
-            double newReceivedAmount =
-                parsedCurrentReceivedAmount + (double.tryParse(amountReceived.text) ?? 0);
-            // Calculate new amountLeft
-            double newAmountLeft = newTotalAmount - newReceivedAmount;
+          // Calculate new values
+          double newTotalAmount = parsedCurrentTotalAmount + totalCost;
+          double newReceivedAmount = parsedCurrentReceivedAmount + receivedAmount;
+          double newAmountLeft = newTotalAmount - newReceivedAmount;
 
-            // Update Firestore document with new totalAmount, amountReceived, and amountLeft
-            await FirebaseFirestore.instance
-                .collection('clients')
-                .doc(doc.id)
-                .update({
-              'totalAmount': newTotalAmount.toString(),
-              'amountReceived': newReceivedAmount.toString(),
-              'amountLeft': newAmountLeft.toString(),
-            });
-          }
-          // If key doesn't already exist
-          else {
-            double? totalAmountReceived = totalCost - (double.tryParse(amountReceived.text) ?? 0);
-
-            await FirebaseFirestore.instance
-                .collection('clients')
-                .doc(doc.id)
-                .update({
-              'totalAmount': totalCost.toString(),
-              'amountReceived': amountReceived.text.toString(),
-              'amountLeft': totalAmountReceived.toString(),
-            });
-          }
+          // Update the document
+          await docRef.update({
+            'totalAmount': newTotalAmount.toString(),
+            'amountReceived': newReceivedAmount.toString(),
+            'amountLeft': newAmountLeft.toString(),
+          });
         }
       } else {
-        print('No documents found for the given phoneNumber');
+        // Document does not exist, create a new one
+        double totalAmountLeft = totalCost - receivedAmount;
+
+        await docRef.set({
+          'totalAmount': totalCost.toString(),
+          'amountReceived': receivedAmount.toString(),
+          'amountLeft': totalAmountLeft.toString(),
+        });
+
+        print('New document created with ID equal to the phone number');
       }
     } catch (e) {
       print('Error storing cost information: $e');
@@ -210,13 +193,13 @@ class AddPageController extends FullLifeCycleController
 
 
 
-  void addUserOrderData(Map<String, dynamic> data) async {
+  Future<void> addUserOrderData(Map<String, dynamic> data) async {
     data['timestamp'] = FieldValue.serverTimestamp();
     await FirebaseFirestore.instance.collection("orders").doc().set(data);
   }
 
   //!Fetch all products from inventory collection to show in drop down
-  void getProducts() async {
+  Future<void> getProducts() async {
     try {
       final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('inventory')
@@ -225,18 +208,23 @@ class AddPageController extends FullLifeCycleController
 
       products.clear();
       for (var doc in querySnapshot.docs) {
-        List<dynamic> productList = doc['products'];
-        productList.forEach((type) {
-          products.add(type as String);
-        });
+        List<dynamic> productList = doc['products']; // Access the 'products' field
+        for (var product in productList) {
+          if (product is String && !products.contains(product)) {
+            products.add(product);
+          }
+        }
       }
+
+      print('Fetched products: $products'); // Log the fetched products
     } catch (e) {
       print('Error fetching products: $e');
     }
   }
 
+
   //!Fetch all productTypes from inventory collection to show in drop down
-  void productType() async {
+  Future<void> productType() async {
     try {
       final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('inventory')
@@ -256,8 +244,8 @@ class AddPageController extends FullLifeCycleController
     }
   }
 
-  //!On submit button click store all data filled in text controller and selected in drop down
-  void onSubmitButtonClick() async {
+  //!On submit button (Create New Customer)
+  Future<void> onSubmitButtonClick() async {
     final phoneNumber = phoneController.text.trim();
     final name = nameController.text.trim().toLowerCase();
     final address = addressController.text.trim();
@@ -267,7 +255,6 @@ class AddPageController extends FullLifeCycleController
           .collection('clients')
           .where('phoneNumber', isEqualTo: phoneNumber)
           .get();
-
       if (phoneNumber.isEmpty || name.isEmpty || address.isEmpty) {
         Get.snackbar("Error", "Fill all fields",
             snackPosition: SnackPosition.BOTTOM);
@@ -280,11 +267,10 @@ class AddPageController extends FullLifeCycleController
       } else {
         final customer = CustomerModel(
           id: null,
-          name: name,
+          name: name.toLowerCase(),
           phoneNumber: phoneNumber,
           address: address,
         );
-
         try {
           DocumentReference<Object?>? newCustomerRef =
               await customerRepository.createCustomer(customer);
@@ -292,7 +278,6 @@ class AddPageController extends FullLifeCycleController
           if (newCustomerRef == null) {
             throw Exception('Failed to create customer document');
           }
-
           nameController.clear();
           phoneController.clear();
           addressController.clear();
@@ -310,6 +295,37 @@ class AddPageController extends FullLifeCycleController
           snackPosition: SnackPosition.BOTTOM);
     }
   }
+
+  //! Show suggestion of previous cost for customer. If no previous cost exists, do not show suggestion.
+  Future<void> getPreviousCost() async {
+    try {
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('orders')
+          .where('customer', isEqualTo: userPhoneNumber.toString())
+          .where('product', isEqualTo: selectedProduct.value)
+          .where('productType', isEqualTo: selectedProductType.value)
+          .orderBy('timestamp', descending: true)
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        final Map<String, dynamic> lastOrder = querySnapshot.docs.first.data() as Map<String, dynamic>;
+        final String previousPriceStr = lastOrder['price'] ?? '0'; // Ensure value exists
+        final String previousUnitsStr = lastOrder['unit'] ?? '1'; // Ensure value exists
+        final double previousPrice = double.tryParse(previousPriceStr) ?? 0.0;
+        final double previousUnits = double.tryParse(previousUnitsStr) ?? 1.0;
+        final double finalPrice = previousPrice * previousUnits;
+        costController.text = finalPrice.toString();
+
+        print('Previous price: $previousPrice');
+      } else {
+        print('No previous orders found.');
+      }
+    } catch (e) {
+      print('Error fetching user orders: $e');
+    }
+  }
+
 
   @override
   void onDetached() {

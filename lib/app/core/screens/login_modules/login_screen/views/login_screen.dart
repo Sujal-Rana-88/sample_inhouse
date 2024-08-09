@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_inhouse/app/core/screens/login_modules/login_screen/views/phone_auth.dart';
 import '../controllers/login_controller.dart';
 
@@ -32,7 +31,7 @@ class LoginScreen extends GetView<LoginController> {
                         child: Column(
                           children: [
                             Text(
-                              AppLocalizations.of(context)!.login_screen_title,
+                              'Join us via phone number',
                               textAlign: TextAlign.center,
                               style:const TextStyle(
                                 color: Colors.white,
@@ -60,8 +59,7 @@ class LoginScreen extends GetView<LoginController> {
                         child: Column(
                           children: [
                             Text(
-                              AppLocalizations.of(context)!
-                                  .login_screen_subtitle,
+                              "we'll text a code to verify your phone number",
                               textAlign: TextAlign.center,
                               style:const TextStyle(
                                 color: Colors.grey,
@@ -93,8 +91,7 @@ class LoginScreen extends GetView<LoginController> {
                         child: Column(
                           children: [
                             Text(
-                              AppLocalizations.of(context)!
-                                  .terms_of_use_and_privacy_policy,
+                              'Joining our app means you agree with our Terms of use and Privacy Policy',
                               textAlign: TextAlign.center,
                               style:const TextStyle(
                                 color: Colors.grey,

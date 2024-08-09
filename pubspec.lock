@@ -429,6 +429,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.12.0"
+  multiselect:
+    dependency: "direct main"
+    description:
+      name: multiselect
+      sha256: "21f60b3979adc4b769058b7aba2a124b2d14f769ede948efb61f116e3c3ff435"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
+  navigation_builder:
+    dependency: transitive
+    description:
+      name: navigation_builder
+      sha256: d1b145dde5869849613d9b93ecd8f5a3ae929471ef81d1ba017f476b70bd7c39
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   path:
     dependency: transitive
     description:
@@ -618,6 +634,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
+  states_rebuilder:
+    dependency: transitive
+    description:
+      name: states_rebuilder
+      sha256: f760498bb7adbe12d0d6da67f23c07e6c41de6261052ba8794356222fe27ddf3
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.4.0"
   stream_channel:
     dependency: transitive
     description:
@@ -634,6 +658,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: fd4d2cdbf8d0d1e3441817cb8a03f896566fad5187788957e78492fe16800388
+      url: "https://pub.dev"
+    source: hosted
+    version: "26.2.7"
+  syncfusion_flutter_datepicker:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_datepicker
+      sha256: e541929ccf95a9188ef9f32dfca544f29b3fc222d4dc5da9cb1112305021a615
+      url: "https://pub.dev"
+    source: hosted
+    version: "26.2.7"
   term_glyph:
     dependency: transitive
     description:

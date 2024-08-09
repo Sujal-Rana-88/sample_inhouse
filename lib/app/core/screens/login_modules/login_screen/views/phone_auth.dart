@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import '../../../../routes/app_pages.dart';
 import '../../otp_screen/controllers/otp_screen_controller.dart';
@@ -24,7 +23,7 @@ class PhoneAuth extends StatelessWidget {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
 
-                hintText: AppLocalizations.of(context)!.phone_number_label,
+                hintText: 'Enter your phone number',
                 hintStyle: TextStyle(color: Colors.white),
                 suffixIcon: Icon(Icons.phone, color: Colors.white),
                 border: OutlineInputBorder(
@@ -87,7 +86,7 @@ class PhoneAuth extends StatelessWidget {
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     )
                         : Text(
-                      AppLocalizations.of(context)!.next,
+                      'next',
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 22,

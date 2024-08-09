@@ -23,9 +23,10 @@ class _TransactionHistoryTabState extends State<TransactionHistoryTab> {
         itemCount: customerProfileScreenController.userOrders.length,
         itemBuilder: (context, index) {
           final order = customerProfileScreenController.userOrders[index];
+          final amount = order['price'];
           final timestamp = order['timestamp'] as Timestamp;
           final dateTime = timestamp.toDate();
-          final formattedDate = DateFormat('EEE, yyyy-MM-dd').format(dateTime);
+          final formattedDate = DateFormat('EEE, dd-MM-yyyy').format(dateTime);
           final formattedTime = DateFormat('hh:mm a').format(dateTime);
 
           return Padding(
@@ -51,12 +52,12 @@ class _TransactionHistoryTabState extends State<TransactionHistoryTab> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'March 7, 2022 12:14 PM',
-                              style: StyleConstants.balcktextstyle400,
+                              ('$formattedDate $formattedTime'),
+                              style: StyleConstants.lightbalcktextstyle500,
                             ),
                             const Spacer(),
                             Text(
-                              ' ₹33.65',
+                              ' ₹$amount',
                               style: StyleConstants.headingTextstyleskyblue2,
                             ),
                           ],

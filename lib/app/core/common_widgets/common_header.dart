@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import 'package:sample_inhouse/app/core/constants/app_icon.dart';
 
 class CommonHeader extends StatelessWidget {
-
   const CommonHeader({
     super.key,
   });
 
   // Define static colors and styles
   static const Color gradientColorPrimary = Color(0xFF42A5F5); // Example color
-  static const Color gradientColorSecondary = Color(0xFF1E88E5); // Example color
+  static const Color gradientColorSecondary =
+      Color(0xFF1E88E5); // Example color
   static const Color iconColor = Color(0xFF616161); // Example color
   static const Color textColor = Color(0xFF212121); // Example color
   static const TextStyle textStyle16w600 = TextStyle(
@@ -58,7 +58,8 @@ class CommonHeader extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 5.0),
                           child: SvgPicture.asset(
-                            'assets/icons/black_location_icon.svg', // Example SVG path
+                            'assets/icons/black_location_icon.svg',
+                            // Example SVG path
                             color: iconColor,
                           ),
                         ),
@@ -68,7 +69,8 @@ class CommonHeader extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("Abhishek Jaiswal", style: textStyle16w600),
+                          const Text("Abhishek Jaiswal",
+                              style: textStyle16w600),
                           const Text("B145 noida", style: textStyle10w400),
                         ],
                       ),
@@ -89,14 +91,12 @@ class CommonHeader extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 5),
-
                     ],
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 16),
-
           ],
         ),
       ),

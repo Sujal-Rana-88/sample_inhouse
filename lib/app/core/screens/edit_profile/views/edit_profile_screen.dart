@@ -39,19 +39,19 @@ class EditProfileScreen extends GetView<EditProfileScreenController>  {
         )
       ),
 
-      body: Column(
-        children: [
-          Padding(
-            padding:  EdgeInsets.only(left:screenWidth*0.06, bottom: screenHeight*0.01 ),
-            child: Row(
-              children: [
-                Text('Name', style: StyleConstants.black16w500,),
-              ],
+      body: Padding(
+        padding:  EdgeInsets.only(left:screenWidth*0.04, right:screenWidth*0.04),
+        child: Column(
+          children: [
+            Padding(
+              padding:  EdgeInsets.only( bottom: screenHeight*0.01 ),
+              child: Row(
+                children: [
+                  Text('Name', style: StyleConstants.black16w500,),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding:  EdgeInsets.only(left: screenWidth*0.04, right:  screenWidth*0.04),
-            child: TextField(
+            TextField(
               controller: editProfileScreenController.userNameController,
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
@@ -74,18 +74,15 @@ class EditProfileScreen extends GetView<EditProfileScreenController>  {
                 counterText: "", // Hide the counter text
               ),
             ),
-          ),
-          Padding(
-            padding:  EdgeInsets.only(left:screenWidth*0.06, bottom: screenHeight*0.01, top: screenHeight*0.04 ),
-            child: Row(
-              children: [
-                Text('Phone Number', style: StyleConstants.black16w500,),
-              ],
+            Padding(
+              padding:  EdgeInsets.only( bottom: screenHeight*0.01, top: screenHeight*0.04 ),
+              child: Row(
+                children: [
+                  Text('Phone Number', style: StyleConstants.black16w500,),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding:  EdgeInsets.only(left: screenWidth*0.04, right:  screenWidth*0.04),
-            child: TextField(
+            TextField(
               controller: editProfileScreenController.userPhoneNumberController,
               style: TextStyle(color: Colors.black),
               keyboardType: TextInputType.number,
@@ -95,7 +92,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController>  {
                 hintText: "Phone Number", //TODO: update this according to user name
                 hintStyle: TextStyle(color: Colors.grey),
 
-
+                enabled: false,
                 border: OutlineInputBorder(
                   borderSide: const BorderSide(color: Color(0xFFEAEBEE), width: 2),
                   borderRadius: BorderRadius.circular(12),
@@ -111,33 +108,28 @@ class EditProfileScreen extends GetView<EditProfileScreenController>  {
                 counterText: "", // Hide the counter text
               ),
             ),
-          ),
-          Padding(
-            padding:  EdgeInsets.only(left:screenWidth*0.06, bottom: screenHeight*0.01, top: screenHeight*0.04 ),
-            child: Row(
-              children: [
-                Expanded(child: Text('Call our Support Team if you want to change business name!', style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 16
-                ),)),
-              ],
+            Padding(
+              padding:  EdgeInsets.only( bottom: screenHeight*0.01, top: screenHeight*0.04 ),
+              child: Row(
+                children: [
+                  Expanded(child: Text('Call our Support Team if you want to change business name!', style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 16
+                  ),)),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding:  EdgeInsets.only(left:screenWidth*0.06, bottom: screenHeight*0.01 ),
-            child: Row(
+            Row(
               children: [
                 Text('Default Address', style: StyleConstants.black16w500,),
               ],
             ),
-          ),
-          Padding(
-            padding:  EdgeInsets.only(left: screenWidth*0.04, right:  screenWidth*0.04),
-            child: TextField(
+            TextField(
 
               controller: editProfileScreenController.userAddressController,
               style: TextStyle(color: Colors.black),
               maxLines: 2,
+
               decoration: InputDecoration(
                 hintText: "Address", //TODO: update this according to user name
                 hintStyle: TextStyle(color: Colors.grey),
@@ -157,8 +149,34 @@ class EditProfileScreen extends GetView<EditProfileScreenController>  {
                 counterText: "", // Hide the counter text
               ),
             ),
-          ),
-        ],
+            Spacer(),
+            GestureDetector(
+              onTap: (){
+               editProfileScreenController.onSaveButton();
+              },
+
+              child: Material(
+                borderRadius: BorderRadius.circular(10),
+                color: Color(0xFFFA713F),
+                child: SizedBox(
+                  width: 400.0,
+                  height: 50,
+                  child: Center(
+                    child: Text(
+                      'Save',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: screenHeight*0.02,),
+
+          ],
+        ),
       ),
     );
   }
