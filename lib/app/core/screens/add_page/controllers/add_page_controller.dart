@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../../core/models/customer_model.dart';
 import '../../../../../repository/customer_repository/customer_repository.dart';
+import '../views/product_pair.dart';
 
 class AddPageController extends FullLifeCycleController
     with FullLifeCycleMixin {
-  //TODO -> Use Infinite Scroller if needed
+  //! Use Infinite Scroller if needed
   // static const _pageSize = 10;
   // final PagingController<int, DocumentSnapshot> pagingController =
   // PagingController(firstPageKey: 0);
@@ -15,7 +16,8 @@ class AddPageController extends FullLifeCycleController
   var products = <String>[].obs;
   var selectedProductType = ''.obs;
   var userPhoneNumber = ''.obs;
-  var selectedProduct = ''.obs;
+  var selectedProducts = <String>[].obs;
+
   var userOrders = <Map<String, dynamic>>[].obs;
   TextEditingController unitController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -28,11 +30,12 @@ class AddPageController extends FullLifeCycleController
   var unitText = ''.obs;
   var costText = ''.obs;
   var amountReceivedText = ''.obs;
+  List<ProductPair> productPairs = [];
+  List<String> selected = [];
 
-  var selectedProductTypes = <String>[].obs;
   @override
   void onInit() {
-    //TODO -> Use Infinite Scroller if needed
+    //! Use Infinite Scroller if needed
     // pagingController.addPageRequestListener((pageKey) {
     //   _fetchPage(pageKey);
     // });
@@ -52,14 +55,25 @@ class AddPageController extends FullLifeCycleController
 
   }
 
+
+
+
+
+  void addProductPair(String product, String productType, String cost, String unit) {
+    productPairs.add(ProductPair(product, productType, cost, unit));
+  }
+
+  void removeProductPair(String product) {
+    productPairs.removeWhere((pair) => pair.product == product);
+  }
+
+
   void setSelectedProductType(String value) {
     selectedProductType.value = value;
     getProducts();
   }
 
-  void setSelectedProduct(String product) {
-    selectedProduct.value = product;
-  }
+
 
   //!Fetch current day orders of customers
   Future<void> fetchUserOrders() async {
@@ -89,47 +103,38 @@ class AddPageController extends FullLifeCycleController
 
 
   //!Store Cost according to products (eg-: cements, bricks etc)
-  Future<void> storeCost() async {
+  Future<void> storeProductData() async {
     try {
-      double unitCost = double.tryParse(unitController.text) ?? 0;
-      double productCost = double.tryParse(costController.text) ?? 0;
-      double totalCost = unitCost * productCost;
+      List<Map<String, String>> productsList = [];
 
-    //!Get the values to check if product already exist or not
-      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection('cost')
-          .doc(selectedCustomer.toString())
-          .get();
-
-      if (documentSnapshot.exists) {
-        Map<String, dynamic> existingData = documentSnapshot.data() as Map<String, dynamic>;
-
-        if (existingData.containsKey(selectedProduct.toString())) {
-          double currentCost = existingData[selectedProduct.toString()];
-          totalCost += currentCost;
-        }
-        existingData[selectedProduct.toString()] = totalCost;
-
-        await FirebaseFirestore.instance
-            .collection('cost')
-            .doc(selectedCustomer.toString())
-            .set(existingData);
+      //! Iterate through the productPairs list to populate the list of maps
+      for (var pair in productPairs) {
+        productsList.add({
+          'productName': pair.product,
+          'productType': pair.productType,
+          'price': pair.cost,
+          'unit': pair.unit,
+        });
       }
-      //!If product doesn't exist already create new field and add cost
-      else {
-        Map<String, dynamic> newData = {
-          selectedProduct.toString(): totalCost,
-        };
-        await FirebaseFirestore.instance
-            .collection('cost')
-            .doc(selectedCustomer.toString())
-            .set(newData);
-      }
-      print('Cost information stored successfully.');
+
+      // Creating a map to store in Firestore
+      Map<String, dynamic> productData = {
+        'customer': selectedCustomer.toString(),
+        'products': productsList,
+      };
+
+      await FirebaseFirestore.instance
+          .collection('orders')
+          .doc()
+          .set(productData);
+
+      print('Product data stored successfully.');
     } catch (e) {
-      print('Error storing cost information: $e');
+      print('Error storing product data: $e');
     }
   }
+
+
 
   //!update user amount (eg-: Total Amount, Amount Paid, and Amount Left)
   Future<void> userAmount() async {
@@ -297,34 +302,34 @@ class AddPageController extends FullLifeCycleController
   }
 
   //! Show suggestion of previous cost for customer. If no previous cost exists, do not show suggestion.
-  Future<void> getPreviousCost() async {
-    try {
-      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('orders')
-          .where('customer', isEqualTo: userPhoneNumber.toString())
-          .where('product', isEqualTo: selectedProduct.value)
-          .where('productType', isEqualTo: selectedProductType.value)
-          .orderBy('timestamp', descending: true)
-          .limit(1)
-          .get();
-
-      if (querySnapshot.docs.isNotEmpty) {
-        final Map<String, dynamic> lastOrder = querySnapshot.docs.first.data() as Map<String, dynamic>;
-        final String previousPriceStr = lastOrder['price'] ?? '0'; // Ensure value exists
-        final String previousUnitsStr = lastOrder['unit'] ?? '1'; // Ensure value exists
-        final double previousPrice = double.tryParse(previousPriceStr) ?? 0.0;
-        final double previousUnits = double.tryParse(previousUnitsStr) ?? 1.0;
-        final double finalPrice = previousPrice * previousUnits;
-        costController.text = finalPrice.toString();
-
-        print('Previous price: $previousPrice');
-      } else {
-        print('No previous orders found.');
-      }
-    } catch (e) {
-      print('Error fetching user orders: $e');
-    }
-  }
+  // Future<void> getPreviousCost() async {
+  //   try {
+  //     final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+  //         .collection('orders')
+  //         .where('customer', isEqualTo: userPhoneNumber.toString())
+  //         .where('product', isEqualTo: selectedProduct.value)
+  //         .where('productType', isEqualTo: selectedProductType.value)
+  //         .orderBy('timestamp', descending: true)
+  //         .limit(1)
+  //         .get();
+  //
+  //     if (querySnapshot.docs.isNotEmpty) {
+  //       final Map<String, dynamic> lastOrder = querySnapshot.docs.first.data() as Map<String, dynamic>;
+  //       final String previousPriceStr = lastOrder['price'] ?? '0'; // Ensure value exists
+  //       final String previousUnitsStr = lastOrder['unit'] ?? '1'; // Ensure value exists
+  //       final double previousPrice = double.tryParse(previousPriceStr) ?? 0.0;
+  //       final double previousUnits = double.tryParse(previousUnitsStr) ?? 1.0;
+  //       final double finalPrice = previousPrice * previousUnits;
+  //       costController.text = finalPrice.toString();
+  //
+  //       print('Previous price: $previousPrice');
+  //     } else {
+  //       print('No previous orders found.');
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching user orders: $e');
+  //   }
+  // }
 
 
   @override

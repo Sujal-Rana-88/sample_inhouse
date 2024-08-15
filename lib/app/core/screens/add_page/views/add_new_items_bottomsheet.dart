@@ -63,7 +63,7 @@ class _AddNewItemsBottomsheetState extends State<AddNewItemsBottomsheet> {
                           ProductTypeDropDown(
                             onChanged: (value) {
                               setState(() {
-                                selectedProductType = value as String;
+                                selectedProductType ;
                               });
                             },
                           ),
@@ -81,9 +81,9 @@ class _AddNewItemsBottomsheetState extends State<AddNewItemsBottomsheet> {
                           ),
                           const Spacer(),
                           ProductsDropdown(
-                            onChanged: (value) {
+                            onChanged: (values) {
                               setState(() {
-                                selectedProduct = value;
+                                selectedProduct = values.isNotEmpty ? values.first : '';
                               });
                             },
                           ),
@@ -221,34 +221,18 @@ class _AddNewItemsBottomsheetState extends State<AddNewItemsBottomsheet> {
                         double amountReceived = double.tryParse(
                                 addPageController.amountReceived.text) ??
                             0.0;
-                        double finalPrice = unit * price;
-                        String paymentType = "";
-                        if (finalPrice < amountReceived) {
-                          paymentType = "credit";
-                        } else {
-                          paymentType = "cash";
-                        }
+
 
                         if (addPageController.unitText.isNotEmpty &&
                             addPageController.costText.isNotEmpty &&
                             addPageController.unitText.isNotEmpty &&
                             addPageController.selectedCustomer.value.length ==
                                 10) {
-                          Map<String, dynamic> orderData = {
-                            'timestamp': FieldValue.serverTimestamp(),
-                            'customer':
-                                addPageController.selectedCustomer.value,
-                            'productType': selectedProductType,
-                            'product': selectedProduct,
-                            'unit': addPageController.unitController.text
-                                .toString(),
-                            'price': addPageController.amountReceived.text
-                                .toString(),
-                            'paymentType': paymentType.toString()
-                          };
-                          addPageController.storeCost();
+
+                          addPageController.storeProductData();
+                          // addPageController.storeCost();
                           addPageController.userAmount();
-                          addPageController.addUserOrderData(orderData);
+                          // addPageController.addUserOrderData(orderData);
                           addPageController.unitController.clear();
                           addPageController.amountReceived.clear();
                           addPageController.costController.clear();

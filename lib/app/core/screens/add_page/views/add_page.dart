@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:multiselect/multiselect.dart';
 import 'package:sample_inhouse/app/core/screens/add_page/views/add_existing_customer.dart';
 import '../controllers/add_page_controller.dart';
 
@@ -23,7 +22,7 @@ class AddPage extends GetView<AddPageController> {
         child: Padding(
           padding: EdgeInsets.only(
               right: screenWidth * 0.05, left: screenWidth * 0.05),
-          child:  Column(
+          child:const  Column(
             children: [
               Expanded(
                 child: AddExistingCustomer(),
